@@ -1,0 +1,81 @@
+{% load static %}
+{% load account %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>PrivateCLOUD</title>
+    <link rel="stylesheet" type="text/css" href="{% static "css/bootstrap.css" %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static "css/bootstrap-theme.css" %}"/>
+    <script type="application/javascript" src="{% static "js/jquery-3.2.1.min.js" %}"></script>
+    <script type="application/javascript" src="{% static "js/bootstrap.js" %}"></script>
+</head>
+<body>
+
+<nav class="navbar navbar-default" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="/">PrivateCLOUD</a>
+        </div>
+        <ul class="nav navbar-nav navbar-right">
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
+                    {% if user.is_active %}
+                        {% user_display user %}
+                    {% else %}
+                        Guest
+                    {% endif %}
+                    <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu" role="menu">
+                    {% if user.is_active %}
+                        <li>
+                            <a href="#">
+                                <span class="glyphicon glyphicon-user"></span>
+                                <span class="glyphicon-class">
+                                    Show Profile
+                                </span>
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="{% url 'account_logout' %}">
+                                <span class="glyphicon glyphicon-off"></span>
+                                <span class="glyphicon-class">
+                                    Logout
+                                </span>
+                            </a>
+                        </li>
+                    {% else %}
+                        <li>
+                            <a href="{% url 'account_login' %}">
+                                Login
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{% url 'account_signup' %}">
+                                Sign Up
+                            </a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="container">
+    {% block content %}
+
+    {% endblock content %}
+</div>
+
+<footer class="bs-docs-footer">
+    <div class="container">
+        Licensed by Dmitry Rozhkov
+    </div>
+</footer>
+
+</body>
+</html>
